@@ -23,6 +23,7 @@ Rancher API keeps changing, currently we hard code the rancher version to versio
   -  Kind (kubernetes in docker) locally.
      The installation instruction is here: https://kind.sigs.k8s.io/docs/user/quick-start/
   - Kubectl
+  - Linkerd cli
   - Helm 3
 
 2) Adjust docker engine memory
