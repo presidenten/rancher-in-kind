@@ -33,28 +33,6 @@ Default docker engine is set to use 2GB runtime memory, adjust it to 8GB+ if you
 
 Currently I only set one worker node, you can add more if you need.
 
-```
-$ cat kind.yaml.template
-kind: Cluster
-apiVersion: kind.x-k8s.io/v1alpha4
-nodes:
-- role: control-plane
-- role: worker
-  extraMounts:
-  - hostPath: ./data
-    containerPath: /data
-- role: worker
-  extraMounts:
-  - hostPath: ./data
-    containerPath: /data
-- role: worker
-  extraMounts:
-  - hostPath: ./data
-    containerPath: /data
-```
-
-with this way, you can share the local directoy `./data` to all nodes as persistent volume.
-
 ### Create the stack
 
 ```bash
