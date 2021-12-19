@@ -3,8 +3,6 @@
 CERTS_DIR=certs
 CERT_TIME=87600
 
-kubectl wait --for=condition=Ready pods --all --all-namespaces
-
 LINKERD_INSTALLED=$(helm ls | grep '^linkerd\s')
 if [[ ! $LINKERD_INSTALLED ]]; then
   sh ./scripts/prepare-linkerd-certificates.sh $CERTS_DIR $CERT_TIME
@@ -17,13 +15,13 @@ helm upgrade --install linkerd \
      --set linkerd2.identity.issuer.crtExpiry=$CERT_TIME \
      ./charts/linkerd
 
-kubectl -n linkerd wait --for=condition=Ready pod --all
+kubectl -n linkerd wait --for=condition=Ready --timeout=120s pod --all
 
 linkerd check
 
 helm upgrade --install linkerd-viz ./charts/linkerd-viz
 
-kubectl -n linkerd-viz wait --for=condition=Ready pod --all
+kubectl -n linkerd-viz wait --for=condition=Ready --timeout=120s pod --all
 # kubectl -n linkerd-viz get pods |  awk 'NR!=1' | awk '{print $1;}' | xargs kubectl -n linkerd-viz delete pod
 # kubectl -n linkerd-viz wait --for=condition=Ready pod --all
 

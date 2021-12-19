@@ -54,9 +54,10 @@ eval "${AGENTCOMMAND}"
 
 
 ### Extra stuff
-
+kubectl wait --for=condition=Ready --timeout=120s pods --all --all-namespaces
 sh scripts/setup-monitoring.sh
 sh scripts/setup-linkerd.sh
+
 
 # export the cluster detail
 echo "Rancher admin password is: ${PASSWORD}"
