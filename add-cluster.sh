@@ -5,10 +5,10 @@
 # Forked with updates from https://gist.github.com/superseb/c363247c879e96c982495daea1125276/#file-rancher2customnodecmd-sh
 
 URL="$1"
-KIND_CLUSTER_NAME="${2:-kind-for-rancher}"
 INIT_PASSWORD=$(docker exec -ti $3 reset-password |grep -v "New password" |sed 's/\r$//')
 sleep 15
-PASSWORD="password"
+KIND_CLUSTER_NAME="${2:-dev}"
+PASSWORD="admin"
 
 while ! curl -k "https://${URL}/ping"; do sleep 3; done
 
@@ -20,7 +20,6 @@ echo ${LOGINTOKEN}
 
 # Change password
 curl -s "https://${URL}/v3/users?action=changepassword" -H 'content-type: application/json' -H "Authorization: Bearer $LOGINTOKEN" --data-binary '{"currentPassword":"'${INIT_PASSWORD}'","newPassword":"'${PASSWORD}'"}' --insecure
-
 LOGINRESPONSE=`curl -s "https://${URL}/v3-public/localProviders/local?action=login" -H 'content-type: application/json' --data-binary '{"username":"admin","password":"'${PASSWORD}'"}' --insecure`
 LOGINTOKEN=`echo $LOGINRESPONSE | jq -r .token`
 echo ${LOGINTOKEN}

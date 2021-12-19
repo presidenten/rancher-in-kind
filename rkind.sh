@@ -6,10 +6,6 @@
 set -u
 set -o pipefail
 
-RANCHER_CONTAINER_NAME="rancher-for-kind"
-RANCHER_HTTP_HOST_PORT=$[$[RANDOM%9000]+30000]
-RANCHER_HTTPS_HOST_PORT=$[$[RANDOM%9000]+30000]
-: ${KIND_CLUSTER_NAME:="kind-for-rancher"}
 
 COLOR_OFF='\033[0m'
 GREEN='\033[0;92m'
@@ -17,6 +13,12 @@ YELLOW='\033[0;33m'
 PURPLE='\033[0;95m'
 RED='\033[0;91m'
 
+RANCHER_CONTAINER_NAME="rancher"
+RANCHER_HTTP_HOST_PORT=$[4080]
+RANCHER_HTTPS_HOST_PORT=$[4443]
+REGISTRY_CONTAINER_NAME="registry"
+REGISTRY_HTTP_HOST_PORT=$[5000]
+: ${KIND_CLUSTER_NAME:="dev"}
 RANCHER_VERSION=2.6.2
 
 info() {
@@ -151,6 +153,9 @@ if [[ "${MODE:-}" == "destroy" ]]; then
   if ! kind delete cluster --name ${KIND_CLUSTER_NAME}; then
     error "failed to delete Kind cluster \"${KIND_CLUSTER_NAME}\".." -
   fi
+  if ! docker rm -f ${REGISTRY_CONTAINER_NAME}; then
+    error "failed to remove Rancher container \"${REGISTRY_CONTAINER_NAME}\".." -
+  fi
   exit 0
 elif [[ "${MODE:-}" != "create" ]]; then
   usage
@@ -176,6 +181,10 @@ fi
 
 echo $RANCHER_CONTAINER_ID
 
+# Launch docker registry
+docker run -d --restart=unless-stopped --name ${REGISTRY_CONTAINER_NAME} -p ${REGISTRY_HTTP_HOST_PORT}:5000 registry:2
+
+
 # Start KIND cluster
 if [[ $(kind get clusters | grep -c ${KIND_CLUSTER_NAME}) -ne 0 ]]; then
   warn "KIND cluster is already running.."
@@ -195,7 +204,7 @@ if [[ $(kind get clusters | grep -c ${KIND_CLUSTER_NAME}) -ne 0 ]]; then
   esac
 else
   info "Creating Kind cluster ..."
-  kind create cluster --name ${KIND_CLUSTER_NAME} --config kind.yaml
+  kind create cluster --name ${KIND_CLUSTER_NAME} --config config/kind.yaml
 fi
 
 cat >&2 <<EOM
@@ -211,7 +220,7 @@ cat >&2 <<EOM
 
     curl --insecure -sfL https://${localip}:${RANCHER_HTTPS_HOST_PORT}/v3/import/6qbm7q9lk7gmqsgt4l2hrrchlxbfh6fjskzb8tx84mjrl9jvhb8xcm.yaml | kubectl apply -f -
 
-- set context to kind cluster 
+- set context to kind cluster
 
 kubectl cluster-info --context kind-${KIND_CLUSTER_NAME}
 
@@ -220,7 +229,7 @@ To shut everything down, use "$0 destroy", or manually with
 docker rm -f ${RANCHER_CONTAINER_NAME}; kind delete cluster ${KIND_CLUSTER_NAME}
 EOM
 
-echo https://${localip}:${RANCHER_HTTPS_HOST_PORT} > rancher_url_$(date +%Y%m%d%H%M)
+# echo https://${localip}:${RANCHER_HTTPS_HOST_PORT} > rancher_url_$(date +%Y%m%d%H%M)
 
 # set Rancher admin password and add kind cluster
 bash -x ./add-cluster.sh "${localip}:${RANCHER_HTTPS_HOST_PORT}" "${KIND_CLUSTER_NAME}" "${RANCHER_CONTAINER_ID}"
