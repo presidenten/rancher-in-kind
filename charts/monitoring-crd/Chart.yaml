@@ -1,0 +1,10 @@
+apiVersion: v2
+name: monitoring-crd
+description: Rancher cluster monitoring crds
+type: application
+version: 100.0.0+up16.6.0
+appVersion: "100.0.0+up16.6.0"
+dependencies:
+- name: rancher-monitoring-crd
+  repository: file://../../vendor/rancher-charts/charts/rancher-monitoring/rancher-monitoring-crd/100.0.0+up16.6.0
+  version: 100.0.0+up16.6.0

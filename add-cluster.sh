@@ -52,7 +52,18 @@ echo "${AGENTCOMMAND}"
 kubectl cluster-info --context kind-${KIND_CLUSTER_NAME}
 eval "${AGENTCOMMAND}"
 
+
+### Extra stuff
+
+sh scripts/setup-monitoring.sh
+sh scripts/setup-linkerd.sh
+
 # export the cluster detail
 echo "Rancher admin password is: ${PASSWORD}"
 echo "Rancher URL is https://${URL}"
 echo "Rancher account: admin / ${PASSWORD}"
+echo ""
+echo "Linkerd-viz: http://localhost:30000"
+echo ""
+
+

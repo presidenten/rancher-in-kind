@@ -1,2 +1,4 @@
 rancher_url*
 data/
+certs
+vendor/*

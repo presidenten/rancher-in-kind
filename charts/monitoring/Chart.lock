@@ -1,0 +1,12 @@
+dependencies:
+- name: rancher-monitoring
+  repository: file://../../vendor/rancher-charts/charts/rancher-monitoring/rancher-monitoring/100.0.0+up16.6.0
+  version: 100.0.0+up16.6.0
+- name: loki
+  repository: https://grafana.github.io/helm-charts
+  version: 2.8.4
+- name: promtail
+  repository: https://grafana.github.io/helm-charts
+  version: 3.9.1
+digest: sha256:cb59dd3af401b25bd3c4b177a3c70eecba461e95ce416195d30a41ee9587bd69
+generated: "2021-12-19T20:09:53.072152+01:00"

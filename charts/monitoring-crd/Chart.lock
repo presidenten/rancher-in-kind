@@ -1,0 +1,6 @@
+dependencies:
+- name: rancher-monitoring-crd
+  repository: file://../../vendor/rancher-charts/charts/rancher-monitoring/rancher-monitoring-crd/100.0.0+up16.6.0
+  version: 100.0.0+up16.6.0
+digest: sha256:a243a6e2bf15550210478f46b0357220fb8dc0d1e56f7e8e446c14b4fb0b155a
+generated: "2021-12-19T20:09:28.257454+01:00"

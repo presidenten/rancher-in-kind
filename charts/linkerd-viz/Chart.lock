@@ -1,0 +1,6 @@
+dependencies:
+- name: linkerd-viz
+  repository: https://helm.linkerd.io/stable
+  version: 2.11.1
+digest: sha256:f942713562565a4d74cdca6ffbe0c8790dc581aea2598515d98f16ff5cf371e4
+generated: "2021-12-19T20:33:50.12457+01:00"

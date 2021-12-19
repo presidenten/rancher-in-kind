@@ -1,0 +1,10 @@
+apiVersion: v2
+name: linkerd-viz
+description: Linkerd-viz
+type: application
+version: 2.11.1
+appVersion: "2.11.1"
+dependencies:
+- name: linkerd-viz
+  repository: https://helm.linkerd.io/stable
+  version: 2.11.1
