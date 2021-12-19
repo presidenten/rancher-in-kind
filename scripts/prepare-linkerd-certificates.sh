@@ -6,6 +6,7 @@ CERT_TIME=$2
 docker image pull smallstep/step-cli
 docker image pull ubuntu
 rm -rf $CERTS_DIR
+mkdir $CERTS_DIR
 
 CREATE_TRUST_ANCHOR_CERT="step certificate create root.linkerd.cluster.local ca.crt ca.key --profile root-ca --no-password --insecure"
 CREATE_ISSUER_CERT="step certificate create identity.linkerd.cluster.local issuer.crt issuer.key --profile intermediate-ca --not-after ${CERT_TIME}h --no-password --insecure --ca ca.crt --ca-key ca.key"
