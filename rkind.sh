@@ -167,6 +167,7 @@ if [[ $(docker ps -f name=${RANCHER_CONTAINER_NAME} -q | wc -l) -ne 0 ]]; then
   error "Rancher container already present, delete it before trying again, exiting.."
 fi
 info "Launching Rancher container"
+docker image pull rancher/rancher:v${RANCHER_VERSION}
 if RANCHER_CONTAINER_ID=$(docker run -d \
               --privileged \
               --restart=unless-stopped \
