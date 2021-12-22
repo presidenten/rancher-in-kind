@@ -20,19 +20,39 @@ Rancher API keeps changing, currently we hard code the rancher version to versio
 ### Prerequisite
 
 1) Make sure you have installed:
-  -  Kind (kubernetes in docker) locally.
-     The installation instruction is here: https://kind.sigs.k8s.io/docs/user/quick-start/
+  - Kind (kubernetes in docker) locally.
+    Installation instruction: https://kind.sigs.k8s.io/docs/user/quick-start/
   - Kubectl
+    - Installation instructions: https://kubernetes.io/docs/tasks/tools/#kubectl
   - Linkerd cli
+    - Installation instructions (only step 1): https://linkerd.io/2.11/getting-started/#step-1-install-the-cli
   - Helm 3
+    - Installation instructions: https://helm.sh/docs/intro/install/
+  - K9S
+    - Installation instructions: https://k9scli.io/topics/install/
 
 2) Adjust docker engine memory
 
 Default docker engine is set to use 2GB runtime memory, adjust it to 8GB+ if you can.
+You also want 3-4 cpu.
 
-3) review `kind.yaml`
+3) Prepare for the local docker registry
+Add this line to your hosts file (it already resolves in docker desktop for win/mac)
+```bash
+127.0.0.1 host.docker.internal
+```
+Add the insecure-registries config to your docker engine:
 
-Currently I only set one worker node, you can add more if you need.
+```
+  "insecure-registries": [
+    "host.docker.internal:5000"
+  ],
+```
+
+
+4) review `kind.yaml`
+
+Currently I only set two worker nodes, you can add one more if you need.
 
 ### Create the stack
 
