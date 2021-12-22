@@ -30,6 +30,8 @@ Rancher API keeps changing, currently we hard code the rancher version to versio
     - Installation instructions: https://helm.sh/docs/intro/install/
   - K9S
     - Installation instructions: https://k9scli.io/topics/install/
+  - If m1 mac!! Docker Desktop 4.3.1 contains a bug which wont allow rancher to start
+    - Download 4.2.0 here: https://docs.docker.com/desktop/mac/release-notes/#docker-desktop-420
 
 2) Adjust docker engine memory
 
