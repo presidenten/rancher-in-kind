@@ -51,26 +51,31 @@ Add the insecure-registries config to your docker engine:
   ],
 ```
 
-
 4) review `kind.yaml`
 
 Currently I only set two worker nodes, you can add one more if you need.
 
-### Create the stack
+---
+
+### Usage
+#### Create the stack
 
 ```bash
 $ ./rkind.sh create
 ```
 
-### Destroy the stack
+#### Destroy the stack
 
 ```bash
 $ ./rkind.sh destroy
 ```
+
+---
 ### Custom kind configuration
 
 If you'd like to change the kind configuration, please update file [kind.yaml](kind.yaml). For details, go through https://kind.sigs.k8s.io/
 
+---
 
 ### The helm charts
 
@@ -94,16 +99,18 @@ The helm charts includes the original charts as dependencies, adds overrides, an
   https://github.com/presidenten/rancher-in-kind/blob/master/charts/linkerd-viz/templates/services/linkerd-viz-nodeport.yaml
 
 
+---
 
 ### Port usage
 
-- Rancher: localhost:4443
-- Docker registry: host.docker.internal:5000
-- Linked-viz: localhost:30000
-- HTTP ingress: localhost: 30080
-- HTTPS ingress: localhost: 30443 (self signed cert)
-- Nodeports 30001-30010 are free for tcp/udp usage
+- Rancher: `localhost:4443`
+- Docker registry: `host.docker.internal:5000`
+- Linked-viz: `localhost:30000`
+- HTTP ingress: `localhost:30080`
+- HTTPS ingress: `localhost:30443` (self signed cert)
+- Nodeports `30001-30010` are free for tcp/udp usage
 
+---
 
 ### Using local docker registry
 
