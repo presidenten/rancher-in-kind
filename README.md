@@ -1,23 +1,11 @@
 # Usage
 
 This repo is to create rancher and add [kind](https://github.com/kubernetes-sigs/kind) (Kubernetes IN Docker) into Rancher automatically with all-in-one script.
-It also installs cluster monitoring, linkerd and linkerd-viz
+It also installs cluster monitoring, nginx ingress controller, linkerd and linkerd-viz.
 
-* Create Rancher UI
-* Create Kind Kubernetes cluster
-* Init rancher admin’s password
-* Update server url in rancher
-* Import kind cluster into rancher
-* Install cluster monitoring
-* Generate linkerd certificates
-* Install linkerd
-* Install linkerd-viz
+---
 
-### Notes
-
-Rancher API keeps changing, currently we hard code the rancher version to version "v2.6.2"
-
-### Prerequisite
+## Prerequisite
 
 1) Make sure you have installed:
   - Kind (kubernetes in docker) locally.
@@ -57,32 +45,32 @@ Currently I only set two worker nodes, you can add one more if you need.
 
 ---
 
-### Usage
-#### Create the stack
+## Cluster setup and teardown
+### Create the stack
 
 ```bash
 ./rkind.sh create
 ```
 
-#### Destroy the stack
+### Destroy the stack
 
 ```bash
 ./rkind.sh destroy
 ```
 
 ---
-### Custom kind configuration
+## Custom kind configuration
 
 If you'd like to change the kind configuration, please update file [kind.yaml](kind.yaml). For details, go through https://kind.sigs.k8s.io/
 
 ---
 
-### The helm charts
+## The helm charts
 
 The helm charts includes the original charts as dependencies, adds overrides, and might add extra dependencies, like adding loki to grafana and a nodeport service to linkerd-viz.
 
 
-#### Changes to Rancher monitoring
+### Changes to Rancher monitoring
 
 - Extra dependencies (loki + promtail):
   https://github.com/presidenten/rancher-in-kind/blob/master/charts/monitoring/Chart.yaml#L8-L16
@@ -90,7 +78,7 @@ The helm charts includes the original charts as dependencies, adds overrides, an
 - Value overrides:
   https://github.com/presidenten/rancher-in-kind/blob/master/charts/monitoring/values.yaml
 
-#### Changes to linkerd-viz
+### Changes to linkerd-viz
 
 - Helm value overrides:
   https://github.com/presidenten/rancher-in-kind/blob/master/charts/linkerd-viz/values.yaml
@@ -100,7 +88,7 @@ The helm charts includes the original charts as dependencies, adds overrides, an
 
 ---
 
-### Port usage
+## Port usage
 
 | name             | url                                            |
 |------------------|------------------------------------------------|
@@ -113,7 +101,7 @@ The helm charts includes the original charts as dependencies, adds overrides, an
 
 ---
 
-### Using local docker registry
+## Using local docker registry
 
 ```bash
 docker image tag my-image:latest host.docker.internal:5000/my-image:latest
