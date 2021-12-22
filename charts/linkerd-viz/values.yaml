@@ -6,28 +6,28 @@
 #####################################
 
 
-linkerd-viz:
-  # -- Enables Pod Anti Affinity logic to balance the placement of replicas
-  # across hosts and zones for High Availability.
-  # Enable this only when you have multiple replicas of components.
+# linkerd-viz:
+#   # -- Enables Pod Anti Affinity logic to balance the placement of replicas
+#   # across hosts and zones for High Availability.
+#   # Enable this only when you have multiple replicas of components.
 
-  # enablePodAntiAffinity: false
-
-
-  # -- url of external prometheus instance
-  prometheusUrl: "http://prometheus-operated.cattle-monitoring-system.svc.cluster.local:9090"
-
-  # -- url of external grafana instance with reverse proxy configured.
-  grafanaUrl: "http://rancher-monitoring-grafana.cattle-monitoring-system.svc.cluster.local"
-
-  # -- url of external jaeger instance
-  # Set this to `jaeger.linkerd-jaeger.svc.<clusterDomain>` if you plan to use jaeger extension
-  jaegerUrl: ""
+#   # enablePodAntiAffinity: false
 
 
+#   # -- url of external prometheus instance
+#   prometheusUrl: "http://prometheus-operated.cattle-monitoring-system.svc.cluster.local:9090"
 
-  grafana:
-    enabled: false
+#   # -- url of external grafana instance with reverse proxy configured.
+#   grafanaUrl: "http://rancher-monitoring-grafana.cattle-monitoring-system.svc.cluster.local"
 
-  prometheus:
-    enabled: false
+#   # -- url of external jaeger instance
+#   # Set this to `jaeger.linkerd-jaeger.svc.<clusterDomain>` if you plan to use jaeger extension
+#   jaegerUrl: ""
+
+
+
+#   grafana:
+#     enabled: false
+
+#   prometheus:
+#     enabled: false
