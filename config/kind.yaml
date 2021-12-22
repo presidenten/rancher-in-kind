@@ -9,7 +9,7 @@ nodes:
 - role: worker
   extraMounts:
   - hostPath: ./data
-    containerPath: /data
+    containerPath: /var/local-path-provisioner
   extraPortMappings:
   - containerPort: 30000
     hostPort: 30000
