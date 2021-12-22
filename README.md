@@ -92,3 +92,19 @@ The helm charts includes the original charts as dependencies, adds overrides, an
 
 - Extra nodeport service:
   https://github.com/presidenten/rancher-in-kind/blob/master/charts/linkerd-viz/templates/services/linkerd-viz-nodeport.yaml
+
+
+
+### Port usage
+
+- Rancher: localhost:4443
+- Docker registry: host.docker.internal:5000
+  -
+    ```bash
+      docker image tag my-image:latest host.docker.internal:5000/my-image:latest
+      docker image push host.docker.internal:5000/my-image:latest
+    ```
+- Linked-viz: localhost:30000
+- HTTP ingress: localhost: 30080
+- HTTPS ingress: localhost: 30443 (self signed cert)
+- Nodeports 30001-30010 are free for tcp/udp usage
