@@ -6,6 +6,14 @@ containerdConfigPatches:
     endpoint = ["http://host.docker.internal:5000"]
 nodes:
 - role: control-plane
+# - role: worker
+#   extraMounts:
+#   - hostPath: ./data
+#     containerPath: /data
+- role: worker
+  extraMounts:
+  - hostPath: ./data
+    containerPath: /var/local-path-provisioner
 - role: worker
   extraMounts:
   - hostPath: ./data
