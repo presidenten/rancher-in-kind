@@ -1,0 +1,17 @@
+
+
+###################################
+####    INGRESS-CONTROLLER     ####
+###################################
+
+nginx-ingress:
+  controller:
+    service:
+      ## Creates a service to expose the Ingress controller pods.
+      create: true
+      ## The type of service to create for the Ingress controller.
+      type: NodePort
+      httpPort:
+        nodePort: 30080
+      httpsPort:
+        nodePort: 30443

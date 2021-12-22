@@ -1,0 +1,11 @@
+apiVersion: v2
+name: ingress-controller
+description: Nginx ingress controller
+type: application
+version: 0.11.0
+appVersion: "0.11.0"
+dependencies:
+- name: nginx-ingress
+  repository: https://helm.nginx.com/stable
+  version: 0.11.0
+
